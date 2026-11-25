@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TachoX · El tacho que te ve venir</title>
+<meta name="description" content="TachoX: un tacho inteligente con ESP32, sensores ultrasónicos, servo y pantalla LCD. Proyecto TEC del Instituto Agustiniano.">
+<meta name="theme-color" content="#F4F5F7">
+<meta property="og:title" content="TachoX · El tacho que te ve venir">
+<meta property="og:description" content="Acercás la mano, se abre solo. Si está lleno, te avisa. Proyecto TEC · Instituto Agustiniano.">
+<meta property="og:image" content="img/bin-34.webp">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&family=VT323&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/bin-34.webp" fetchpriority="high">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+
+<!-- shared SVG gradients for the mascot -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="tg-head" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D9DCE0"/><stop offset=".55" stop-color="#B9BEC5"/><stop offset="1" stop-color="#9AA0A8"/>
+    </linearGradient>
+    <linearGradient id="tg-lid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E4E6E9"/><stop offset="1" stop-color="#AEB3BA"/>
+    </linearGradient>
+    <linearGradient id="tg-body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#B4B9C0"/><stop offset=".35" stop-color="#C9CDD3"/><stop offset="1" stop-color="#A3A9B1"/>
+    </linearGradient>
+    <pattern id="tg-brush" width="6" height="2" patternUnits="userSpaceOnUse">
+      <rect width="6" height="1" fill="#ffffff" opacity=".08"/>
+    </pattern>
+  </defs>
+</svg>
+
+<header class="nav" id="top">
+  <a href="#hero" class="nav-brand" aria-label="TachoX">
+    <img src="img/logo-colegio.webp" alt="" width="28" height="28">
+    <span>Tacho<b>X</b></span>
+  </a>
+  <div class="lang" role="group" aria-label="Idioma / Language">
+    <span class="lang-thumb" aria-hidden="true"></span>
+    <button type="button" data-lang="es" aria-pressed="true">ES</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero" data-section="HOLA!">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-grid"></div>
+    <div class="hero-spot"></div>
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  </div>
+  <div class="hero-inner">
+    <p class="eyebrow hero-eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">Proyecto TEC · Instituto Agustiniano</span></p>
+    <h1 class="wordmark" aria-label="TachoX">
+      <span class="wm-letters" aria-hidden="true"><span>T</span><span>a</span><span>c</span><span>h</span><span>o</span></span><svg class="wm-x" viewBox="0 0 100 110" aria-hidden="true"><defs><linearGradient id="xg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F6F8"/><stop offset=".42" stop-color="#B3B9C1"/><stop offset=".5" stop-color="#858C96"/><stop offset=".62" stop-color="#C3C8CE"/><stop offset="1" stop-color="#8E959E"/></linearGradient><linearGradient id="xs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path d="M8 6h28l14 30 14-30h28L65 55l29 49H66L50 74 34 104H6l29-49Z" fill="url(#xg)" stroke="#5E646D" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 10h19l13 27-6 10Z" fill="url(#xs)" opacity=".7"/></svg>
+    </h1>
+    <p class="hero-sub" data-i18n="hero.sub">El tacho que te ve venir.</p>
+    <div class="hero-stage">
+      <div class="sonar" aria-hidden="true"><i></i><i></i><i></i></div>
+      <img class="hero-bin" src="img/bin-34.webp" alt="TachoX, el tacho inteligente" data-i18n-alt="hero.alt" width="814" height="1000" fetchpriority="high">
+      <div class="hero-floor" aria-hidden="true"></div>
+      <div class="lcd-chip" aria-hidden="true"><span class="lcd-dot"></span><span class="lcd-type" data-lcd="ESTADO: DISPONIBLE" data-lcd-en="STATUS: AVAILABLE"></span><span class="caret">_</span></div>
+    </div>
+    <a href="#demo" class="btn btn-primary hero-cta"><span data-i18n="hero.cta">Probalo ahora</span> <span class="arrow" aria-hidden="true">↓</span></a>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><span></span></div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>ESP32</span><i>✦</i><span data-i18n="mq.ultra">Ultrasonido</span><i>✦</i><span>Servo</span><i>✦</i><span>LCD 16×2</span><i>✦</i><span>MDF</span><i>✦</i><span data-i18n="mq.touch">Sin contacto</span><i>✦</i>
+    <span>ESP32</span><i>✦</i><span data-i18n="mq.ultra">Ultrasonido</span><i>✦</i><span>Servo</span><i>✦</i><span>LCD 16×2</span><i>✦</i><span>MDF</span><i>✦</i><span data-i18n="mq.touch">Sin contacto</span><i>✦</i>
+  </div>
+</div>
+
+<!-- ============ QUÉ ES ============ -->
+<section class="about section" id="about" data-section="QUE ES?" data-section-en="WHAT?">
+  <div class="container about-grid">
+    <figure class="about-fig">
+      <div class="about-ring" aria-hidden="true"></div>
+      <img class="about-bin" src="img/bin-front.webp" alt="Vista frontal de TachoX" data-i18n-alt="about.alt" width="703" height="1000" loading="lazy">
+    </figure>
+    <div class="about-copy">
+      <p class="eyebrow reveal" data-i18n="about.eyebrow">¿Qué es?</p>
+      <h2 class="h2 reveal" data-i18n="about.title">Un tacho inteligente. Sin tocar nada.</h2>
+      <p class="lead reveal" data-i18n="about.lead">Acercás la mano y se abre solo. Si está lleno, te avisa en su pantalla. Más higiénico, más simple y con mucha personalidad.</p>
+      <div class="stats">
+        <div class="stat reveal"><b><span class="count" data-to="0">0</span></b><span data-i18n="about.s1">contacto</span></div>
+        <div class="stat reveal"><b><span class="count" data-to="3">0</span> s</b><span data-i18n="about.s2">tapa abierta</span></div>
+        <div class="stat reveal"><b><span class="count" data-to="2">0</span>×</b><span data-i18n="about.s3">sensores ultrasónicos</span></div>
+        <div class="stat reveal"><b><span class="count" data-to="1">0</span></b><span data-i18n="about.s4">cerebro: ESP32</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÓMO FUNCIONA (pinned) ============ -->
+<section class="how dark" id="how" data-section="COMO?" data-section-en="HOW?">
+  <div class="how-pin">
+    <div class="container how-grid">
+      <div class="how-head">
+        <p class="eyebrow" data-i18n="how.eyebrow">Cómo funciona</p>
+        <h2 class="h2" data-i18n="how.title">Cuatro pasos. Cero contacto.</h2>
+      </div>
+      <div class="how-stage" aria-hidden="true">
+        <div class="how-hand">✋</div>
+        <div class="how-tachi" data-tachi="big"></div>
+        <div class="gauge"><div class="gauge-fill"></div><span class="gauge-label">0%</span></div>
+      </div>
+      <ol class="how-steps">
+        <li class="step is-active" data-step="0"><span class="step-n">01</span><div><h3 data-i18n="how.s1t">Detecta</h3><p data-i18n="how.s1">Un sensor ultrasónico “ve” tu mano a menos de 20 cm.</p></div></li>
+        <li class="step" data-step="1"><span class="step-n">02</span><div><h3 data-i18n="how.s2t">Abre</h3><p data-i18n="how.s2">El servomotor levanta la tapa durante 3 segundos.</p></div></li>
+        <li class="step" data-step="2"><span class="step-n">03</span><div><h3 data-i18n="how.s3t">Mide</h3><p data-i18n="how.s3">El segundo sensor mira hacia adentro y mide qué tan lleno está.</p></div></li>
+        <li class="step" data-step="3"><span class="step-n">04</span><div><h3 data-i18n="how.s4t">Avisa</h3><p data-i18n="how.s4">La pantalla dice “Disponible” o “Lleno”. Si está lleno, no abre.</p></div></li>
+      </ol>
+      <div class="how-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEMO ============ -->
+<section class="demo dark" id="demo" data-section="JUGA!" data-section-en="PLAY!">
+  <div class="container">
+    <div class="demo-head">
+      <p class="eyebrow" data-i18n="demo.eyebrow">Demo interactiva</p>
+      <h2 class="h2" data-i18n="demo.title">Dale de comer.</h2>
+      <p class="lead" data-i18n="demo.lead">Arrastrá o tocá un residuo. Fijate cómo se abre la tapa, cómo sube el nivel… y qué pasa cuando se llena.</p>
+    </div>
+    <div class="demo-card">
+      <div class="demo-stage">
+        <div class="demo-sonar" aria-hidden="true"><i></i><i></i></div>
+        <div class="demo-tachi" data-tachi="demo"></div>
+        <div class="meter" aria-hidden="true">
+          <div class="meter-segs"><i></i><i></i><i></i><i></i><i></i></div>
+          <span class="meter-pct">0%</span>
+        </div>
+        <div class="toast" role="status" aria-live="polite"></div>
+      </div>
+      <div class="tray" role="group" aria-label="Residuos" data-i18n-aria="demo.tray">
+        <button class="item" type="button" data-item="bottle" aria-label="Botella"><span>🧴</span></button>
+        <button class="item" type="button" data-item="paper" aria-label="Papel"><span>📄</span></button>
+        <button class="item" type="button" data-item="can" aria-label="Lata"><span>🥫</span></button>
+        <button class="item" type="button" data-item="banana" aria-label="Cáscara de banana"><span>🍌</span></button>
+        <button class="item" type="button" data-item="cup" aria-label="Vaso"><span>🥤</span></button>
+      </div>
+      <div class="demo-foot">
+        <p class="demo-status"><span class="status-dot"></span><span class="status-text" data-i18n="demo.available">Disponible</span></p>
+        <button class="btn btn-ghost reset" type="button"><span aria-hidden="true">↺</span> <span data-i18n="demo.reset">Vaciar</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CIRCUITO ============ -->
+<section class="circuit section" id="circuit" data-section="CIRCUITO" data-section-en="CIRCUIT">
+  <div class="container">
+    <p class="eyebrow reveal" data-i18n="circ.eyebrow">El circuito</p>
+    <h2 class="h2 reveal" data-i18n="circ.title">Lo que tiene adentro.</h2>
+    <div class="circ-grid">
+      <figure class="circ-diagram reveal">
+        <img src="img/circuit-diagram.webp" alt="Diagrama del circuito" data-i18n-alt="circ.alt" width="808" height="592" loading="lazy">
+        <button class="hot" style="--x:38%;--y:50%" type="button" data-tip="circ.t1"><span>1</span></button>
+        <button class="hot" style="--x:18%;--y:9%" type="button" data-tip="circ.t2"><span>2</span></button>
+        <button class="hot" style="--x:70%;--y:6%" type="button" data-tip="circ.t3"><span>3</span></button>
+        <button class="hot" style="--x:88%;--y:30%" type="button" data-tip="circ.t4"><span>4</span></button>
+        <div class="tip" role="status" aria-live="polite"></div>
+      </figure>
+      <figure class="circ-photo reveal">
+        <img src="img/circuit-desk.webp" alt="Circuito armado en protoboard" data-i18n-alt="circ.alt2" width="1200" height="900" loading="lazy">
+      </figure>
+    </div>
+    <ul class="parts">
+      <li class="part"><span class="part-ic">🧠</span><b>ESP32</b><span data-i18n="parts.esp">El cerebro. Lee los sensores y decide.</span></li>
+      <li class="part"><span class="part-ic">🦇</span><b data-i18n="parts.usT">2× Ultrasónicos</b><span data-i18n="parts.us">Miden distancia con sonido, como un murciélago.</span></li>
+      <li class="part"><span class="part-ic">⚙️</span><b data-i18n="parts.svT">Servomotor</b><span data-i18n="parts.sv">El músculo: abre y cierra la tapa.</span></li>
+      <li class="part"><span class="part-ic">📟</span><b data-i18n="parts.lcdT">Pantalla LCD</b><span data-i18n="parts.lcd">La cara: muestra Disponible o Lleno.</span></li>
+      <li class="part"><span class="part-ic">🔌</span><b data-i18n="parts.bbT">Protoboard y cables</b><span data-i18n="parts.bb">Conectan todo sin soldar.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CÓDIGO ============ -->
+<section class="code section" id="code" data-section="CODIGO" data-section-en="CODE">
+  <div class="container code-grid">
+    <div>
+      <p class="eyebrow reveal" data-i18n="code.eyebrow">El código</p>
+      <h2 class="h2 reveal" data-i18n="code.title">Pocas líneas. Mucha prueba y error.</h2>
+      <p class="lead reveal" data-i18n="code.lead">Dos sensores detectan a la persona y miden el nivel. Si alguien se acerca y el tacho no está lleno, el servo abre la puerta por 3 segundos. La pantalla muestra “Disponible” o “Lleno”.</p>
+      <p class="note reveal" data-i18n="code.note">Versión resumida del programa.</p>
+    </div>
+    <div class="code-card reveal">
+      <div class="code-bar"><i></i><i></i><i></i><span>tachox.ino</span></div>
+<pre><code><span class="ln"><span class="k">void</span> <span class="f">loop</span>() {</span>
+<span class="ln">  <span class="k">float</span> nivel = <span class="f">medir</span>(TRIG_NIVEL, ECHO_NIVEL); <span class="c">// cm a la basura</span></span>
+<span class="ln">  <span class="k">float</span> mano  = <span class="f">medir</span>(TRIG_MANO, ECHO_MANO);   <span class="c">// cm a tu mano</span></span>
+<span class="ln"></span>
+<span class="ln">  <span class="k">bool</span> lleno = nivel &lt; <span class="n">UMBRAL_LLENO</span>;</span>
+<span class="ln">  lcd.<span class="f">setCursor</span>(<span class="n">0</span>, <span class="n">1</span>);</span>
+<span class="ln">  lcd.<span class="f">print</span>(lleno ? <span class="s">"Lleno     "</span> : <span class="s">"Disponible"</span>);</span>
+<span class="ln"></span>
+<span class="ln">  <span class="k">if</span> (!lleno &amp;&amp; mano &lt; <span class="n">20</span>) {</span>
+<span class="ln">    tapa.<span class="f">write</span>(<span class="n">90</span>);   <span class="c">// abre</span></span>
+<span class="ln">    <span class="f">delay</span>(<span class="n">3000</span>);      <span class="c">// 3 segundos</span></span>
+<span class="ln">    tapa.<span class="f">write</span>(<span class="n">0</span>);    <span class="c">// cierra</span></span>
+<span class="ln">  }</span>
+<span class="ln">}<span class="cursor">▍</span></span></code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESO ============ -->
+<section class="process" id="process" data-section="PROCESO" data-section-en="PROCESS">
+  <div class="process-pin">
+    <div class="container process-head">
+      <p class="eyebrow" data-i18n="proc.eyebrow">El proceso</p>
+      <h2 class="h2" data-i18n="proc.title">De cartón a robot.</h2>
+    </div>
+    <div class="process-track">
+      <article class="pcard"><div class="pimg"><img src="img/circuit-diagram.webp" alt="" width="808" height="592" loading="lazy"></div><span class="pnum">01</span><h3 data-i18n="proc.1t">Diseño</h3><p data-i18n="proc.1">Planeamos el circuito en el simulador antes de tocar un cable.</p></article>
+      <article class="pcard"><div class="pimg"><img src="img/proc-1-mdf.webp" alt="" width="1200" height="900" loading="lazy"></div><span class="pnum">02</span><h3 data-i18n="proc.2t">Corte láser</h3><p data-i18n="proc.2">Cortamos las piezas de MDF: el frente, la pantalla y los “ojos”.</p></article>
+      <article class="pcard"><div class="pimg"><img src="img/circuit-lab.webp" alt="" width="674" height="1200" loading="lazy"></div><span class="pnum">03</span><h3 data-i18n="proc.3t">Circuito</h3><p data-i18n="proc.3">Conectamos sensores, servo y LCD en la protoboard y programamos.</p></article>
+      <article class="pcard"><div class="pimg"><img src="img/proc-2-prototype.webp" alt="" width="675" height="1200" loading="lazy"></div><span class="pnum">04</span><h3 data-i18n="proc.4t">Prototipo</h3><p data-i18n="proc.4">Primera versión en madera. ¡La pantalla dijo “Disponible”!</p></article>
+      <article class="pcard"><div class="pimg"><img src="img/proc-4-painted.webp" alt="" width="675" height="1200" loading="lazy"></div><span class="pnum">05</span><h3 data-i18n="proc.5t">Pintura</h3><p data-i18n="proc.5">Gris metalizado, franja negra y base blanca. Nace el look.</p></article>
+      <article class="pcard"><div class="pimg"><img src="img/demo-bag.webp" alt="" width="675" height="1200" loading="lazy"></div><span class="pnum">06</span><h3 data-i18n="proc.6t">¡Funciona!</h3><p data-i18n="proc.6">Bolsa puesta, sensores calibrados y listo para usar.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EQUIPO ============ -->
+<section class="team section" id="team" data-section="EQUIPO" data-section-en="TEAM">
+  <div class="container">
+    <p class="eyebrow reveal" data-i18n="team.eyebrow">El equipo</p>
+    <h2 class="h2 reveal" data-i18n="team.title">Los que lo hicieron.</h2>
+    <ul class="team-grid">
+      <li class="member" style="--c:#DCE7FF"><div data-tachi="mini" data-l1="HOLA!" data-l2="BORZONE"></div><b>Borzone</b></li>
+      <li class="member" style="--c:#FFE1E5"><div data-tachi="mini" data-l1="HOLA!" data-l2="CLAVIJO"></div><b>Clavijo</b></li>
+      <li class="member" style="--c:#DFF7E8"><div data-tachi="mini" data-l1="HOLA!" data-l2="FRATANGELO"></div><b>Fratangelo</b></li>
+      <li class="member" style="--c:#FFF1D6"><div data-tachi="mini" data-l1="HOLA!" data-l2="MATIONDAKIO"></div><b>Mationdakio</b></li>
+      <li class="member" style="--c:#EDE3FF"><div data-tachi="mini" data-l1="HOLA!" data-l2="PEREZ A."></div><b>Pérez A.</b></li>
+      <li class="member" style="--c:#DDF3F7"><div data-tachi="mini" data-l1="HOLA!" data-l2="PEREZ G."></div><b>Pérez G.</b></li>
+      <li class="member" style="--c:#E9EBEF"><div data-tachi="mini" data-l1="HOLA!" data-l2="RODRIGUEZ S"></div><b>Rodríguez Santos</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ COLEGIO ============ -->
+<section class="school" id="school" data-section="COLEGIO" data-section-en="SCHOOL">
+  <div class="container">
+    <div class="school-card reveal">
+      <div class="school-logo"><img src="img/logo-colegio.webp" alt="Escudo del Instituto Agustiniano" data-i18n-alt="school.alt" width="554" height="554" loading="lazy"></div>
+      <div>
+        <p class="eyebrow light" data-i18n="school.eyebrow">Instituto Agustiniano · Orientación TEC</p>
+        <h2 class="h2"><span data-i18n="school.motto">Ciencia y Caridad</span> <span class="heart">♥</span></h2>
+        <p data-i18n="school.text">TachoX nació en el taller de tecnología: una idea simple para que tirar la basura sea más limpio, más fácil y un poco más divertido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" data-section="CHAU!" data-section-en="BYE!">
+  <div class="container footer-inner">
+    <div class="footer-tachi" data-tachi="footer" data-l1="GRACIAS" data-l2="POR VENIR!"></div>
+    <p class="footer-big" data-i18n="foot.big">Gracias por pasar. ¡Tirá algo!</p>
+    <p class="footer-small"><span data-i18n="foot.made">Hecho con ESP32 y mucho MDF</span> · Instituto Agustiniano · TEC · 2026</p>
+    <a href="#hero" class="btn btn-ghost-dark" data-i18n="foot.top">Volver arriba ↑</a>
+  </div>
+</footer>
+
+<!-- scroll buddy -->
+<button class="buddy" type="button" aria-label="Ir a la demo" data-i18n-aria="buddy.aria">
+  <div data-tachi="buddy" data-l1="HOLA!" data-l2=""></div>
+</button>
+
+<script src="vendor/gsap.min.js" defer></script>
+<script src="vendor/ScrollTrigger.min.js" defer></script>
+<script src="vendor/lenis.min.js" defer></script>
+<script src="js/i18n.js" defer></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
